@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Moon, Sun, Mail, MapPin, Calendar, AxeIcon } from "lucide-react";
+import { Moon, Sun, Mail, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
@@ -99,7 +99,7 @@ export default function Portfolio() {
         {/* Sección "Habilidades" */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-4">Conocimientos en:</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative">
             {[
               "HTML",
               "CSS",
@@ -110,7 +110,7 @@ export default function Portfolio() {
               "Tailwind CSS",
               "Shadcn/UI",
             ].map((habilidad, index) => (
-              <Card key={index}>
+              <Card className="relative z-20" key={index}>
                 <CardContent className="flex items-center justify-center p-10">
                   <p className="text-lg font-semibold">{habilidad}</p>
                 </CardContent>
@@ -118,7 +118,6 @@ export default function Portfolio() {
             ))}
           </div>
         </section>
-
         {/* Sección "Contáctame" */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-4">Contáctame</h2>
@@ -126,16 +125,30 @@ export default function Portfolio() {
             <CardContent className="p-6">
               <form className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
+                  {/* Campo Nombre */}
+                  <div className="relative group">
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium mb-1"
                     >
                       Nombre
                     </label>
-                    <Input id="name" placeholder="Tu Nombre" />
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Tu Nombre"
+                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card"
+                    />
+                    <span
+                      className="absolute right-0 -top-2 w-max rounded-md bg-gray-800 dark:bg-black px-2 py-1 text-xs text-white opacity-0 scale-95 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:scale-100
+                      before:content-[''] before:absolute before:left-1/2 before:-bottom-2 before:translate-x-16 before:border-4 before:border-transparent before:border-t-gray-800 before:dark:border-t-black"
+                    >
+                      Ingresa tu nombre completo
+                    </span>
                   </div>
-                  <div>
+
+                  {/* Campo Email */}
+                  <div className="relative group">
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium mb-1"
@@ -146,10 +159,19 @@ export default function Portfolio() {
                       id="email"
                       type="email"
                       placeholder="tu@correo.com"
+                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card"
                     />
+                    <span
+                      className="absolute right-0 -top-2 w-max rounded-md bg-gray-800 dark:bg-black px-2 py-1 text-xs text-white opacity-0 scale-95 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:scale-100
+                      before:content-[''] before:absolute before:left-1/2 before:-bottom-2 before:translate-x-16 before:border-4 before:border-transparent before:border-t-gray-800 before:dark:border-t-black"
+                    >
+                      Ingresa tu correo electrónico
+                    </span>
                   </div>
                 </div>
-                <div>
+
+                {/* Campo Mensaje */}
+                <div className="relative group">
                   <label
                     htmlFor="message"
                     className="block text-sm font-medium mb-1"
@@ -159,10 +181,18 @@ export default function Portfolio() {
                   <textarea
                     id="message"
                     rows={4}
+                    placeholder="Tu mensaje"
                     className="w-full p-2 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-primary bg-card"
-                    placeholder="Tu mensaje aquí..."
                   ></textarea>
+                  <span
+                    className="absolute right-0 -top-2 w-max rounded-md bg-gray-800 dark:bg-black px-2 py-1 text-xs text-white opacity-0 scale-95 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:scale-100
+                      before:content-[''] before:absolute before:left-1/2 before:-bottom-2 before:translate-x-14 before:border-4 before:border-transparent before:border-t-gray-800 before:dark:border-t-black"
+                  >
+                    Escribe tu mensaje aquí
+                  </span>
                 </div>
+
+                {/* Botón de envío */}
                 <Button className="w-full">Enviar Mensaje</Button>
               </form>
             </CardContent>
@@ -173,7 +203,7 @@ export default function Portfolio() {
       <footer className="bg-background py-4">
         <div className="container mx-auto px-4 flex flex-col items-center space-y-2">
           <div className="flex space-x-4">
-            <Link href="https://github.com/tuusuario" aria-label="GitHub">
+            <Link href="https://github.com/gramaphenia" aria-label="GitHub">
               <GitHubLogoIcon className="w-6 h-6 text-zinc-500 hover:text-slate-400" />
             </Link>
             <Link

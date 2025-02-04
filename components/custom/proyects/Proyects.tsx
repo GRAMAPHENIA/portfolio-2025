@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Timeline, TimelineItem } from "@/components/timeline";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,12 +14,15 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { LinkIcon } from "lucide-react";
 
 const Proyects = () => {
+  const [showAll, setShowAll] = useState(false);
+  const displayedProjects = showAll ? ProyectsData : ProyectsData.slice(0, 3);
+
   return (
-    <section className="mb-12">
+    <section className="mb-12 relative">
       <h2 className="text-3xl font-bold mb-4">Proyectos realizados</h2>
 
       <Timeline>
-        {ProyectsData.map((proyecto, index) => (
+        {displayedProjects.map((proyecto, index) => (
           <TimelineItem key={index}>
             <Card>
               <CardHeader>
@@ -38,7 +41,7 @@ const Proyects = () => {
                     src={proyecto.image}
                     alt={proyecto.title}
                     className="object-cover rounded-lg mb-4 border cursor-pointer h-[200px] w-[400px]"
-                  />{" "}
+                  />
                 </Link>
 
                 <div className="flex flex-col justify-between">
@@ -53,8 +56,8 @@ const Proyects = () => {
                       className="flex items-center text-primary bg-secondary/50 border border-neutral-300/50 dark:border-neutral-700/50 hover:bg-secondary px-4 py-2 rounded-full transition-colors antialiased"
                     >
                       <LinkIcon className="mr-2" />
-                      visitiar sitio
-                    </a>{" "}
+                      Visitar sitio
+                    </a>
                     <a
                       href={proyecto.github}
                       target="_blank"
@@ -71,6 +74,15 @@ const Proyects = () => {
           </TimelineItem>
         ))}
       </Timeline>
+
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="px-6 py-2 bg-secondary text-black rounded-full shadow-md hover:bg-primary-dark transition-all"
+        >
+          {showAll ? "Mostrar menos" : "Mostrar más"}
+        </button>
+      </div>
     </section>
   );
 };
