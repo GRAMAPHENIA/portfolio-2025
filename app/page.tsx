@@ -30,9 +30,9 @@ export default function Portfolio() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${
+      className={`min-h-screen flex flex-col max-w-7xl mx-auto ${
         modoOscuro ? "dark" : ""
-      }  lg:mx-40`}
+      } `}
     >
       <section className="flex justify-center">
         <header className=" bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border rounded-lg px-4 mt-4 w-full mx-2">
@@ -66,7 +66,7 @@ export default function Portfolio() {
             />
             <div>
               <h2 className="text-4xl text-orange-400 dark:text-orange-300 font-extrabold mb-1">
-                Di Corato juan
+                Falla Juan
               </h2>
               <p className="text-lg mb-6 text-zinc-500 dark:text-zinc-400 max-w-xl">
                 Diseñador y desarrollador web con experiencia en la creación de
