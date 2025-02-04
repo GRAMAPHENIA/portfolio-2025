@@ -100,7 +100,7 @@ const Proyects = () => {
       </div>
 
       {/* Botón Mostrar Más / Menos */}
-      <div className="flex justify-center my-40">
+      <div className="flex justify-center mt-20">
         <button
           onClick={() => setShowAll(!showAll)}
           className="flex items-center text-primary bg-secondary/50 border border-neutral-300/50 dark:border-neutral-700/50 hover:bg-secondary px-4 py-2 rounded-full ease-in-out transition-all antialiased"

@@ -193,7 +193,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* Botón de envío */}
-                <Button className="w-full">Enviar Mensaje</Button>
+                <Button className="flex mx-auto">Enviar Mensaje</Button>
               </form>
             </CardContent>
           </Card>
@@ -218,7 +218,7 @@ export default function Portfolio() {
           </div>
           <p className="text-sm text-muted-foreground">
             Sitio creado con <span className="text-blue-400/90">Next.js </span>
-            por JR Octubre de {new Date().getFullYear()}
+            por Falla, Octubre de {new Date().getFullYear()}.
           </p>
         </div>
       </footer>
