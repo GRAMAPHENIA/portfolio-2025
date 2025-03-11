@@ -7,12 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  CodeIcon,
-  GitHubLogoIcon,
-  LinkedInLogoIcon,
-  TwitterLogoIcon,
-} from "@radix-ui/react-icons";
+import { CodeIcon } from "@radix-ui/react-icons";
 import Experience from "@/components/custom/experience/Experience";
 import { Card, CardContent } from "@/components/ui/card";
 import Projects from "@/components/custom/projects/Projects";
@@ -74,9 +69,9 @@ export default function Portfolio() {
       <section className="flex justify-center">
         <header className="bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border rounded-lg px-4 mt-4 w-full mx-2">
           <nav className="flex justify-between items-center py-4 mx-auto">
-            <h1 className="text-2xl font-bold">
+            <div className="text-2xl font-bold">
               <CodeIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
-            </h1>
+            </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon" onClick={alternarModoOscuro}>
                 {modoOscuro ? (
@@ -98,29 +93,39 @@ export default function Portfolio() {
               width={800}
               height={800}
               src="/avatares/avatar-he.webp"
-              alt="John Doe"
+              alt="Falla Juan"
               className="rounded-full w-64 h-64 object-cover"
             />
             <div>
-              <h2 className="text-4xl text-orange-400 dark:text-orange-300 font-extrabold mb-1">
+              <h1 className="text-4xl text-orange-400 dark:text-orange-300 font-extrabold mb-1">
                 Falla Juan
-              </h2>
-              <p className="text-lg mb-6 text-zinc-500 dark:text-zinc-400 max-w-xl">
-                Diseñador y desarrollador web con experiencia en la creación de
-                sitios, funcionales y responsivos.
-              </p>
+              </h1>
+
+              <div className="text-lg mb-6 text-zinc-500 dark:text-zinc-400">
+                <p>Diseñador, Desarrollador.</p>
+                <p className="text-lg mb-6 text-zinc-500 dark:text-zinc-500">
+                  Funcional, Responsivo.
+                </p>
+              </div>
+
               <div className="flex flex-col space-y-2">
                 <div className="flex items-center">
-                  <Mail className="text-slate-500 w-5 h-5 mr-2" />
-                  <span>dicoratojuanpablo@gmail.com</span>
+                  <Mail className="text-zinc-500 w-5 h-5 mr-2" />
+                  <span className="text-zinc-600">
+                    dicoratojuanpablo@gmail.com
+                  </span>
                 </div>
                 <div className="flex items-center">
-                  <MapPin className="text-slate-500 w-5 h-5 mr-2" />
-                  <span>Buenos Aires, Argentina.</span>
+                  <MapPin className="text-zinc-500 w-5 h-5 mr-2" />
+                  <span className="text-zinc-600">
+                    Buenos Aires, Argentina.
+                  </span>
                 </div>
                 <div className="flex items-center">
-                  <Calendar className="text-slate-500 w-5 h-5 mr-2" />
-                  <span>Disponible para trabajo freelance</span>
+                  <Calendar className="text-zinc-500 w-5 h-5 mr-2" />
+                  <span className="text-zinc-600">
+                    Disponible para trabajo freelance
+                  </span>
                 </div>
               </div>
             </div>
@@ -204,9 +209,10 @@ export default function Portfolio() {
 
       <footer className="bg-background py-4">
         <div className="container mx-auto px-4 flex flex-col items-center space-y-2">
+          Falla
           <p className="text-sm text-muted-foreground">
             Sitio creado con <span className="text-blue-400/90">Next.js</span>{" "}
-            por Falla, {new Date().getFullYear()}.
+            en {new Date().getFullYear()}.
           </p>
         </div>
       </footer>
