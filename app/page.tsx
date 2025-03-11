@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Moon, Sun, Mail, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -15,27 +14,65 @@ import {
   TwitterLogoIcon,
 } from "@radix-ui/react-icons";
 import Experience from "@/components/custom/experience/Experience";
-import Proyects from "@/components/custom/proyects/Proyects";
 import { Card, CardContent } from "@/components/ui/card";
+import Projects from "@/components/custom/projects/Projects";
 
-// Solución para iconos de GitHub, LinkedIn y Twitter
+// Componente de Spinner
+const Spinner = () => (
+  <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-zinc-900">
+    <div className="animate-spin rounded-xl h-12 w-12 border-4 border-zinc-400"></div>
+  </div>
+);
 
-export default function Portfolio() {
+// Hook personalizado para manejar el modo oscuro
+const useDarkMode = () => {
   const [modoOscuro, setModoOscuro] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga
+
+  useEffect(() => {
+    const temaGuardado = localStorage.getItem("modoOscuro") === "true";
+    setModoOscuro(temaGuardado);
+    document.documentElement.classList.toggle("dark", temaGuardado);
+    setIsLoading(false); // Finaliza la carga
+  }, []);
 
   const alternarModoOscuro = () => {
-    setModoOscuro(!modoOscuro);
-    document.documentElement.classList.toggle("dark");
+    const nuevoModo = !modoOscuro;
+    setModoOscuro(nuevoModo);
+    localStorage.setItem("modoOscuro", String(nuevoModo));
+    document.documentElement.classList.toggle("dark", nuevoModo);
   };
 
+  return { modoOscuro, alternarModoOscuro, isLoading };
+};
+
+export default function Portfolio() {
+  const { modoOscuro, alternarModoOscuro, isLoading } = useDarkMode();
+
+  // Lista de habilidades memorizada
+  const habilidades = useMemo(
+    () => [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "Shadcn/UI",
+    ],
+    []
+  );
+
+  // Si está cargando, mostrar el spinner
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
-    <div
-      className={`min-h-screen flex flex-col max-w-7xl mx-auto ${
-        modoOscuro ? "dark" : ""
-      } `}
-    >
+    <div className="min-h-screen flex flex-col max-w-7xl mx-auto">
       <section className="flex justify-center">
-        <header className=" bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border rounded-lg px-4 mt-4 w-full mx-2">
+        <header className="bg-white/70 dark:bg-zinc-900/70 backdrop-blur-md border rounded-lg px-4 mt-4 w-full mx-2">
           <nav className="flex justify-between items-center py-4 mx-auto">
             <h1 className="text-2xl font-bold">
               <CodeIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
@@ -94,23 +131,14 @@ export default function Portfolio() {
         <Experience />
 
         {/* Sección "Proyectos" */}
-        <Proyects />
+        <Projects />
 
         {/* Sección "Habilidades" */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-4">Conocimientos en:</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative">
-            {[
-              "HTML",
-              "CSS",
-              "JavaScript",
-              "TypeScript",
-              "React",
-              "Next.js",
-              "Tailwind CSS",
-              "Shadcn/UI",
-            ].map((habilidad, index) => (
-              <Card className="relative z-20" key={index}>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {habilidades.map((habilidad, index) => (
+              <Card key={index}>
                 <CardContent className="flex items-center justify-center p-10">
                   <p className="text-lg font-semibold">{habilidad}</p>
                 </CardContent>
@@ -118,6 +146,7 @@ export default function Portfolio() {
             ))}
           </div>
         </section>
+
         {/* Sección "Contáctame" */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold mb-4">Contáctame</h2>
@@ -125,30 +154,16 @@ export default function Portfolio() {
             <CardContent className="p-6">
               <form className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Campo Nombre */}
-                  <div className="relative group">
+                  <div>
                     <label
                       htmlFor="name"
                       className="block text-sm font-medium mb-1"
                     >
                       Nombre
                     </label>
-                    <Input
-                      id="name"
-                      type="text"
-                      placeholder="Tu Nombre"
-                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card"
-                    />
-                    <span
-                      className="absolute right-0 -top-2 w-max rounded-md bg-gray-800 dark:bg-black px-2 py-1 text-xs text-white opacity-0 scale-95 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:scale-100
-                      before:content-[''] before:absolute before:left-1/2 before:-bottom-2 before:translate-x-16 before:border-4 before:border-transparent before:border-t-gray-800 before:dark:border-t-black"
-                    >
-                      Ingresa tu nombre completo
-                    </span>
+                    <Input id="name" type="text" placeholder="Tu Nombre" />
                   </div>
-
-                  {/* Campo Email */}
-                  <div className="relative group">
+                  <div>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium mb-1"
@@ -159,19 +174,11 @@ export default function Portfolio() {
                       id="email"
                       type="email"
                       placeholder="tu@correo.com"
-                      className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-card"
                     />
-                    <span
-                      className="absolute right-0 -top-2 w-max rounded-md bg-gray-800 dark:bg-black px-2 py-1 text-xs text-white opacity-0 scale-95 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:scale-100
-                      before:content-[''] before:absolute before:left-1/2 before:-bottom-2 before:translate-x-16 before:border-4 before:border-transparent before:border-t-gray-800 before:dark:border-t-black"
-                    >
-                      Ingresa tu correo electrónico
-                    </span>
                   </div>
                 </div>
 
-                {/* Campo Mensaje */}
-                <div className="relative group">
+                <div>
                   <label
                     htmlFor="message"
                     className="block text-sm font-medium mb-1"
@@ -182,43 +189,24 @@ export default function Portfolio() {
                     id="message"
                     rows={4}
                     placeholder="Tu mensaje"
-                    className="w-full p-2 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-primary bg-card"
-                  ></textarea>
-                  <span
-                    className="absolute right-0 -top-2 w-max rounded-md bg-gray-800 dark:bg-black px-2 py-1 text-xs text-white opacity-0 scale-95 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:scale-100
-                      before:content-[''] before:absolute before:left-1/2 before:-bottom-2 before:translate-x-14 before:border-4 before:border-transparent before:border-t-gray-800 before:dark:border-t-black"
-                  >
-                    Escribe tu mensaje aquí
-                  </span>
+                    className="w-full p-2 border bg-transparent rounded-md resize-none"
+                  />
                 </div>
 
-                {/* Botón de envío */}
                 <Button className="flex mx-auto">Enviar Mensaje</Button>
               </form>
             </CardContent>
           </Card>
         </section>
       </main>
+
       <Separator />
+
       <footer className="bg-background py-4">
         <div className="container mx-auto px-4 flex flex-col items-center space-y-2">
-          <div className="flex space-x-4">
-            <Link href="https://github.com/gramaphenia" aria-label="GitHub">
-              <GitHubLogoIcon className="w-6 h-6 text-zinc-500 hover:text-slate-400" />
-            </Link>
-            <Link
-              href="https://linkedin.com/in/tuusuario"
-              aria-label="LinkedIn"
-            >
-              <LinkedInLogoIcon className="w-6 h-6 text-zinc-500 hover:text-slate-400" />
-            </Link>
-            <Link href="https://twitter.com/tuusuario" aria-label="Twitter">
-              <TwitterLogoIcon className="w-6 h-6 text-zinc-500 hover:text-slate-400" />
-            </Link>
-          </div>
           <p className="text-sm text-muted-foreground">
-            Sitio creado con <span className="text-blue-400/90">Next.js </span>
-            por Falla, Octubre de {new Date().getFullYear()}.
+            Sitio creado con <span className="text-blue-400/90">Next.js</span>{" "}
+            por Falla, {new Date().getFullYear()}.
           </p>
         </div>
       </footer>

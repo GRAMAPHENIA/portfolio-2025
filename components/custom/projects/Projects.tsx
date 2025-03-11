@@ -13,7 +13,7 @@ import ProyectsData from "@/data/proyects";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { LinkIcon } from "lucide-react";
 
-const Proyects = () => {
+const Projects = () => {
   const [showAll, setShowAll] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState("0px");
@@ -95,7 +95,7 @@ const Proyects = () => {
 
         {/* Fade-out effect (siempre visible) */}
         {!showAll && (
-          <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-background to-transparent pointer-events-none" />
         )}
       </div>
 
@@ -112,4 +112,4 @@ const Proyects = () => {
   );
 };
 
-export default Proyects;
+export default Projects;
